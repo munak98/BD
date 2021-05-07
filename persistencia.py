@@ -1,12 +1,17 @@
 def IPcreate(cursor, table, data):
+    tablename = ''
     if table == 1:
         columns = "(cliente_cpf, nome, data_nascimento, email, rg, endereco, sexo)"
+        tablename = 'CLIENTE'
     if table == 2:
         columns = "(cnpj, nome, endereco, classe, patrimonio)"
+        tablename = 'INSTITUICAO'
     if table == 3:
         columns = "(produto_id, nome, classe, taxa_adm, taxa_rendimento, taxa_IR, valor_minimo, emissor)"
+        tablename = 'PRODUTO'
 
-    cursor.execute("INSERT INTO {} {} VALUES {}; ".format(table, columns, data))
+    #cursor.execute("INSERT INTO {} {} VALUES {}; ".format(table, columns, data))
+    cursor.execute(f"INSERT INTO {tablename} {columns} VALUES {data}")
     return 0
 
 def IPread(cursor, table):
