@@ -153,7 +153,7 @@ def IUdelete(cursor, table):
         key_value = input("-> ")
     if table == 4:
         key = "numero"
-        print("Isira o numero da instâncua. Digite -1 para deletar todas as instâncias.")
+        print("Insira o numero da instâncua. Digite -1 para deletar todas as instâncias.")
         key_value = input("->")
 
     status = IPdelete(cursor, tables[table-1], key, key_value)
