@@ -49,4 +49,9 @@ def IPdelete(cursor, table, key, key_value):
             return 1
     return 0
 
-    
+def view(cursor):
+    cursor.execute("SELECT * FROM CLIENTE_APLICACAO;")
+    data = cursor.fetchall();
+    for i in data:
+        print(i)
+

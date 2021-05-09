@@ -13,6 +13,9 @@ try:
             if operation == -1:
                 break
             while(True):
+                if operation == 5:
+                    view(cursor)
+                    break
                 table = printTablesMenu()
                 if table == -1:
                     break

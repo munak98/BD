@@ -3,7 +3,7 @@ tables = ["CLIENTE", "INSTITUICAO", "PRODUTO", "CONTA_CORRENTE"]
 
 def printCRUDMenu():
     print("\nQue operação deseja realizar? Digite -1 para sair.")
-    print("1 - Criar \n2 - Ler \n3 - Atualizar \n4 - Deletar")
+    print("1 - Criar \n2 - Ler \n3 - Atualizar \n4 - Deletar \n5 - Ver todos os clientes e suas aplicações")
     op = int(input("-> "))
     return op
 
