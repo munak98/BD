@@ -9,6 +9,9 @@ def IPcreate(cursor, table, data):
     if table == 3:
         columns = "(produto_id, nome, classe, taxa_adm, taxa_rendimento, taxa_IR, valor_minimo, emissor)"
         tablename = 'PRODUTO'
+    if table == 4:
+        columns = "(numero, saldo, senha, cpf_cliente, agencia)"
+        tablename = 'CONTA_CORRENTE'
 
     #cursor.execute("INSERT INTO {} {} VALUES {}; ".format(table, columns, data))
     cursor.execute(f"INSERT INTO {tablename} {columns} VALUES {data}")
@@ -30,3 +33,5 @@ def IPdelete(cursor, table, key, key_value):
     else:
         cursor.execute("DELETE FROM {} WHERE {} = \"{}\";".format(table, key, key_value))
     return 0
+
+    

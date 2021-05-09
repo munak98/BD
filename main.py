@@ -18,12 +18,13 @@ try:
                     break
                 if (operation == 1):
                     IUcreate(cursor, table)
-                if (operation == 2):
+                elif (operation == 2):
                     IUread(cursor, table)
-                if (operation == 3):
+                elif (operation == 3):
                     IUupdate(cursor, table)
-                if (operation == 4):
+                elif (operation == 4):
                     IUdelete(cursor, table)
+                
                 connection.commit()
 
 except Error as e:
