@@ -15,6 +15,9 @@ def IPcreate(cursor, table, data):
     elif table == 4:
         columns = "(numero, saldo, senha, cpf_cliente, agencia)"
         tablename = 'CONTA_CORRENTE'
+    elif table == 5:
+        columns = "(valor, data_aplicacao, data_vencimento, conta, produto, horario)"
+        tablename = 'APLICACAO'
 
     #cursor.execute("INSERT INTO {} {} VALUES {}; ".format(table, columns, data))
     try:
@@ -37,6 +40,15 @@ def IPupdate(cursor, table, column, value, key, key_value):
         return 1
     return 0
 
+def IUupdateApplication(cursor, table, column, value, time, date, account, product):
+    try:
+        cursor.execute(f"UPDATE {table} SET {column} = {value} WHERE horario = \"{time}\" AND data_aplicacao = \"{date}\" AND conta = \"{account}\" AND produto = \"{product}\";")
+    except Error as e:
+        print(e)
+        return 1
+    return 0
+
+
 
 def IPdelete(cursor, table, key, key_value):
     if key_value == '-1':
@@ -44,6 +56,18 @@ def IPdelete(cursor, table, key, key_value):
     else:
         try:
             cursor.execute("DELETE FROM {} WHERE {} = \"{}\";".format(table, key, key_value))
+        except Error as e:
+            print(e)
+            return 1
+    return 0
+
+def IPdeleteApplication(cursor, table, time, date, account, product):
+    if time == '-1':
+        cursor.execute("DELETE FROM {};".format(table))
+
+    else:
+        try:
+            cursor.execute(f"DELETE FROM APLICACAO WHERE horario = \"{time}\" AND data_aplicacao = \"{date}\" AND conta = \"{account}\" AND produto = \"{product}\";")
         except Error as e:
             print(e)
             return 1
