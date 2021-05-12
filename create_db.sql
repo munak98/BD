@@ -1,3 +1,5 @@
+USE financeiro;
+
 DROP TABLE IF EXISTS DEPENDENTE;
 DROP TABLE IF EXISTS FUNCIONARIO;
 DROP TABLE IF EXISTS CARGO;
@@ -31,6 +33,7 @@ CREATE TABLE FUNCIONARIO(
 	data_nascimento DATE,
 	data_contratacao DATE,
 	matricula VARCHAR(45),
+    foto BINARY,
 	sexo ENUM('masculino', 'feminino', 'outro'),
     id_cargo INT NOT NULL, 
     agencia VARCHAR(5) NOT NULL, 

@@ -19,7 +19,6 @@ def IPcreate(cursor, table, data):
         columns = "(valor, data_aplicacao, data_vencimento, conta, produto, horario)"
         tablename = 'APLICACAO'
 
-    #cursor.execute("INSERT INTO {} {} VALUES {}; ".format(table, columns, data))
     try:
         cursor.execute(f"INSERT INTO {tablename} {columns} VALUES {data}")
     except Error as e:
@@ -78,4 +77,3 @@ def view(cursor):
     data = cursor.fetchall();
     for i in data:
         print(i)
-

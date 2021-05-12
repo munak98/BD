@@ -43,7 +43,7 @@ def IUcreate(cursor, table):
         valor_minimo = input("Valor mínimo: ")
         emissor = str(input("CNPJ da instituição emissora: "))
         data = (id, nome, classe, taxa_adm, taxa_rendimento, taxa_IR, valor_minimo, emissor)
-    
+
     if table == 4:
         numero = input("Número da conta (Até 15 dígitos): ")
         saldo = input("Saldo: ")
@@ -51,7 +51,7 @@ def IUcreate(cursor, table):
         cpf_titular = input("CPF do titular: ")
         agencia = input("Agência (Até 5 dígitos): ")
         data = (numero, saldo, senha, cpf_titular, agencia)
-    
+
     if table == 5:
         valor = float(input("Digite o valor da aplicação: "))
         data_aplic = input("Digite a data da aplicação (YYYY-MM-DD): ")
@@ -60,7 +60,7 @@ def IUcreate(cursor, table):
         produto = input("Digite o código do produto: ")
         horario = input("Digite o horário de realização da aplicação (hh:mm): ")
         data = (valor, data_aplic, data_venc, conta, produto, horario)
-     
+
 
     status = IPcreate(cursor, table, data)
     if status == 0:
@@ -126,7 +126,7 @@ def IUupdate(cursor, table):
             col_value = float(col_value)
         else:
             col_value = "\"{}\"".format(col_value)
-    
+
     if table == 4:
         columns = ["numero", "saldo", "senha", "cpf_cliente", "agencia"]
         key = "numero"
@@ -142,7 +142,7 @@ def IUupdate(cursor, table):
             col_value = float(col_value)
         else:
             col_value = f"\"{col_value}\""
-    
+
     if table == 5:
         columns = ["data_aplicacao", "valor", "data_vencimento", "conta", "produto", "horario"]
         print("Digite o horario da aplicação que deseja alterar.")
@@ -157,7 +157,7 @@ def IUupdate(cursor, table):
         print("1 - Valor")
         print("2 - Data de vencimento")
         col = int(input("->" ))
-        col_value = input("\nIsira o novo valor: ")
+        col_value = input("\nInsira o novo valor: ")
         if col == 1:
             col_value = float(col_value)
         else:
@@ -165,9 +165,9 @@ def IUupdate(cursor, table):
         status = IUupdateApplication(cursor, tables[table-1], columns[col], col_value, time, date, account, product)
         if status == 0:
             print("\nInstância atualizada com sucesso.")
-            return     
-      
-      
+            return
+
+
     status = IPupdate(cursor, tables[table-1], columns[col], col_value, key, key_value)
     if status == 0:
         print("\nInstância atualizada com sucesso.")
@@ -190,13 +190,13 @@ def IUdelete(cursor, table):
         print("Insira o numero da instância. Digite -1 para deletar todas as instâncias.")
         key_value = input("->")
     if table == 5:
-        print("Digite o horario da instancia. Digite -1 para deletar todas as instâncias.")
+        print("Digite o horário da instância. Digite -1 para deletar todas as instâncias.")
         time = input("-> ")
-        print("Digite a data da instancia.")
+        print("Digite a data da instância.")
         date = input("-> ")
-        print("Digite a conta responsável pela instancia.")
+        print("Digite a conta responsável pela instância.")
         account = input("-> ")
-        print("Digite o produto da instancia.")
+        print("Digite o produto da instância.")
         product = input("-> ")
         status = IPdeleteApplication(cursor, table, time, date, account, product)
         if status == 0:
