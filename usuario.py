@@ -1,5 +1,7 @@
 from persistencia import *
+import base64
 tables = ["CLIENTE", "INSTITUICAO", "PRODUTO", "CONTA_CORRENTE", "APLICACAO"]
+
 
 def printCRUDMenu():
     print("\nQue operação deseja realizar? Digite -1 para sair.")
@@ -23,7 +25,7 @@ def IUcreate(cursor, table):
         rg = str(input("RG: "))
         endereco = str(input("Endereço: "))
         sexo = str(input("Sexo ('masculino', 'feminino', 'outro'):"))
-        data = (cpf, nome, data_nascimento, email, rg, endereco, sexo)
+        data = (cpf, nome, data_nascimento, email, rg, endereco, binaryFoto, sexo)
 
     if (table == 2):
         cnpj = str(input("CNPJ: "))
@@ -79,7 +81,7 @@ def showData(data, table):
 
 def IUupdate(cursor, table):
     if table == 1:
-        columns = ["cpf", "nome", "data_nascimento", "email", "rg", "endereco", "sexo"]
+        columns = ["cpf", "nome", "data_nascimento", "email", "rg", "endereco", "foto", "sexo"]
         key = "cliente_cpf"
         key_value = input("\nInsira o CPF da instância: ")
         print("\nSelecione o dado a ser atualizado.")
@@ -88,10 +90,16 @@ def IUupdate(cursor, table):
         print("3 - Email")
         print("4 - RG")
         print("5 - Endereço")
-        print("6 - Sexo ('masculino', 'feminino', 'outro')")
+        print("6 - Foto")
+        print("7 - Sexo ('masculino', 'feminino', 'outro')")
         col = int(input("-> "))
-        col_value = input("\nInsira o novo valor: ")
-        col_value = "\"{}\"".format(col_value)
+        if (col == 6):
+            col_value = input("\nInsira o caminho para a foto: ")
+            with open(col_value, 'rb') as file:
+                col_value = file.read()
+        else:
+            col_value = input("\nInsira o novo valor: ")
+            col_value = "\"{}\"".format(col_value)
     if table == 2:
         columns = ["cnpj", "nome", "endereco", "classe", "patrimonio"]
         key = "cnpj"

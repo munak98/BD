@@ -4,7 +4,7 @@ from mysql.connector import Error
 def IPcreate(cursor, table, data):
     tablename = ''
     if table == 1:
-        columns = "(cliente_cpf, nome, data_nascimento, email, rg, endereco, sexo)"
+        columns = "(cliente_cpf, nome, data_nascimento, email, rg, endereco, foto, sexo)"
         tablename = 'CLIENTE'
     elif table == 2:
         columns = "(cnpj, nome, endereco, classe, patrimonio)"
@@ -27,13 +27,16 @@ def IPcreate(cursor, table, data):
     return 0
 
 def IPread(cursor, table):
-    cursor.execute("SELECT * FROM {};".format(table))
+    cursor.execute(f"SELECT * FROM {table};")
     return 0, cursor.fetchall();
 
 
 def IPupdate(cursor, table, column, value, key, key_value):
     try:
-        cursor.execute("UPDATE {} SET {} = {} WHERE {} = \"{}\";".format(table, column, value, key, key_value))
+        if (column == 'foto'):
+            query = f"UPDATE {table} SET {column} = %s WHERE {key} = %s;"
+            tuple = (value, key_value)
+            cursor.execute(query, tuple)
     except Error as e:
         print(e)
         return 1
@@ -46,6 +49,7 @@ def IUupdateApplication(cursor, table, column, value, time, date, account, produ
         print(e)
         return 1
     return 0
+
 
 
 

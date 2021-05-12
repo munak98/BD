@@ -3,7 +3,8 @@ import mysql.connector
 from mysql.connector import Error
 
 try:
-    connection = mysql.connector.connect(host='localhost', database='financeiro', user='root', password='975856')
+    connection = mysql.connector.connect(host='localhost', database='financeiro', user='root', password='123456')
+
     if connection.is_connected():
         print("Connected to MySQL Server")
         cursor = connection.cursor()
@@ -27,7 +28,7 @@ try:
                     IUupdate(cursor, table)
                 elif (operation == 4):
                     IUdelete(cursor, table)
-                
+
                 connection.commit()
 
 except Error as e:
