@@ -1,3 +1,5 @@
+USE financeiro;
+
 DROP TABLE IF EXISTS DEPENDENTE;
 DROP TABLE IF EXISTS FUNCIONARIO;
 DROP TABLE IF EXISTS CARGO;
@@ -32,8 +34,8 @@ CREATE TABLE FUNCIONARIO(
 	data_contratacao DATE,
 	matricula VARCHAR(45),
 	sexo ENUM('masculino', 'feminino', 'outro'),
-    id_cargo INT NOT NULL, 
-    agencia VARCHAR(5) NOT NULL, 
+    id_cargo INT NOT NULL,
+    agencia VARCHAR(5) NOT NULL,
 	FOREIGN KEY (id_cargo) REFERENCES CARGO (cargo_id),
     FOREIGN KEY (agencia) REFERENCES AGENCIA (numero)
 );
@@ -44,7 +46,7 @@ CREATE TABLE DEPENDENTE(
 	data_nascimento DATE,
 	parentesco VARCHAR(45),
 	sexo ENUM('masculino', 'feminino', 'outro'),
-	funcionario CHAR(11), 
+	funcionario CHAR(11),
     PRIMARY KEY (funcionario, nome),
     FOREIGN KEY (funcionario) REFERENCES FUNCIONARIO (funcionario_cpf)
 );
@@ -56,6 +58,7 @@ CREATE TABLE CLIENTE(
 	email VARCHAR(45),
 	RG CHAR(7),
     endereco VARCHAR(45),
+	foto BLOB,
 	sexo ENUM('masculino', 'feminino', 'outro')
 );
 
@@ -184,15 +187,15 @@ VALUES(6000.00, 0.03, 20, '2021-12-20', 1000.0, '55555555555');
 insert into FINANCIAMENTO (valor, juros, dia_pagamento, data_vencimento, valor_quitado, cpf_cliente)
 VALUES(8000.00, 0.03, 20, '2021-12-20', 2600.0, '44444444444');
 
-insert into INSTITUICAO (cnpj, nome, endereco, classe, patrimonio) 
+insert into INSTITUICAO (cnpj, nome, endereco, classe, patrimonio)
 VALUES ("00000000001", "Banco Uno", "Setor Bancário", "banco", 998761462.77);
-insert into INSTITUICAO (cnpj, nome, endereco, classe, patrimonio) 
+insert into INSTITUICAO (cnpj, nome, endereco, classe, patrimonio)
 VALUES ("00000000000", "Investimentor", "Setor Comercial", "corretora", 68975432165.86);
-insert into INSTITUICAO (cnpj, nome, endereco, classe, patrimonio) 
+insert into INSTITUICAO (cnpj, nome, endereco, classe, patrimonio)
 VALUES ("00000000002", "Associação Imobiliária", "Setor Comercial", "outro", 9665432165.86);
-insert into INSTITUICAO (cnpj, nome, endereco, classe, patrimonio) 
+insert into INSTITUICAO (cnpj, nome, endereco, classe, patrimonio)
 VALUES ("00000000003", "Dinheiroso", "Setor de Autarquias", "banco", 77575432165.86);
-insert into INSTITUICAO (cnpj, nome, endereco, classe, patrimonio) 
+insert into INSTITUICAO (cnpj, nome, endereco, classe, patrimonio)
 VALUES ("00000000004", "Beb", "Setor de Diversões", "outro", 75432165.86);
 
 insert into PRODUTO (produto_id, nome, classe, taxa_adm, taxa_rendimento, taxa_IR, valor_minimo, emissor)
@@ -247,9 +250,3 @@ ON INSTITUICAO.cnpj = PRODUTO.emissor GROUP BY CLIENTE.cliente_cpf, APLICACAO.da
 CLIENTE.cliente_cpf = current_cpf;
 END $$
 DELIMITER ;
-
-
-
-
-
-

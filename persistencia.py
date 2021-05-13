@@ -19,7 +19,6 @@ def IPcreate(cursor, table, data):
         columns = "(valor, data_aplicacao, data_vencimento, conta, produto, horario)"
         tablename = 'APLICACAO'
 
-    #cursor.execute("INSERT INTO {} {} VALUES {}; ".format(table, columns, data))
     try:
         cursor.execute(f"INSERT INTO {tablename} {columns} VALUES {data}")
     except Error as e:
@@ -28,13 +27,18 @@ def IPcreate(cursor, table, data):
     return 0
 
 def IPread(cursor, table):
-    cursor.execute("SELECT * FROM {};".format(table))
+    if table == "CLIENTE":
+        cursor.execute(f"SELECT cliente_cpf, nome, data_nascimento, email, RG, endereco, sexo FROM {table}")
+    else:
+        cursor.execute(f"SELECT * FROM {table};")
     return 0, cursor.fetchall();
 
 
 def IPupdate(cursor, table, column, value, key, key_value):
     try:
-        cursor.execute("UPDATE {} SET {} = {} WHERE {} = \"{}\";".format(table, column, value, key, key_value))
+        query = f"UPDATE {table} SET {column} = %s WHERE {key} = %s;"
+        tuple = (value, key_value)
+        cursor.execute(query, tuple)
     except Error as e:
         print(e)
         return 1
@@ -47,6 +51,7 @@ def IUupdateApplication(cursor, table, column, value, time, date, account, produ
         print(e)
         return 1
     return 0
+
 
 
 
@@ -78,4 +83,3 @@ def view(cursor):
     data = cursor.fetchall();
     for i in data:
         print(i)
-
