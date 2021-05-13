@@ -3,7 +3,7 @@ import mysql.connector
 from mysql.connector import Error
 
 try:
-    connection = mysql.connector.connect(host='localhost', database='financeiro', user='root', password='123456')
+    connection = mysql.connector.connect(host='localhost', database='financeiro', user='root', password='975856')
     if connection.is_connected():
         print("Connected to MySQL Server")
         cursor = connection.cursor()
@@ -13,17 +13,21 @@ try:
             if operation == -1:
                 break
             while(True):
+                if operation == 5:
+                    view(cursor)
+                    break
                 table = printTablesMenu()
                 if table == -1:
                     break
                 if (operation == 1):
                     IUcreate(cursor, table)
-                if (operation == 2):
+                elif (operation == 2):
                     IUread(cursor, table)
-                if (operation == 3):
+                elif (operation == 3):
                     IUupdate(cursor, table)
-                if (operation == 4):
+                elif (operation == 4):
                     IUdelete(cursor, table)
+                
                 connection.commit()
 
 except Error as e:
